@@ -26,8 +26,6 @@ const ClientPosting = ({ cp }) => {
         }),
     }));
 
-
-
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -94,8 +92,11 @@ const ClientPosting = ({ cp }) => {
                     </CardContent>
                 </Collapse>
 
-                <div className="row px-1">
-                    <div className="col-4"><p><small className='tex-secondary'><i className="fas fa-book"></i></small> Details</p></div>
+                <div expand={expanded}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more" className="row px-1">
+                    <div className="col-4"><p ><small className='tex-secondary'><i className="fas fa-book"></i></small> Details</p></div>
                     <div className="col-4"><p><small className='tex-secondary'><i className="fas fa-pen"></i></small> Apply</p></div>
                     <div className="col-4"><p><small className='tex-secondary'><i className="far fa-envelope"></i></small> Ping</p></div>
                 </div>

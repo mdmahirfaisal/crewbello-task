@@ -6,9 +6,12 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const Professions = ({ pfs }) => {
+
+
+const Operating = ({ location }) => {
+    const { city, country, state, zip_code } = location;
     return (
-        <div className='mb-5'>
+        <div>
             <Card className="shadow " sx={{ maxWidth: 345, borderRadius: '25px' }}>
                 <CardHeader
                     avatar={
@@ -26,18 +29,14 @@ const Professions = ({ pfs }) => {
                 />
 
                 <CardContent>
-                    <div className='text-start'>
-                        <h2 className="fw-bold text-warning"><i>QUICKBOOK</i></h2>
-                    </div>
                     <div className='row'>
-                        <div className='col-4'>
-                            <img className='img-fluid' style={{ width: '60px' }} src="https://cdn.jsdelivr.net/gh/FrontCrewbella/sttc/img/user/post/profession.svg" alt="Profession" />
+                        <div className='col-4 '>
+                            <i className="fs-1 text-danger fas fa-map-marker-alt"></i>
 
                         </div>
 
                         <div className='col-8 text-start'>
-                            <p>{pfs.title}</p>
-                            <p className="mt-2">Rate: {pfs.quickbook_details === null ? "Working as a Filmaker for 5 Year(s)" : pfs.quickbook_details.rate_currency} {pfs.quickbook_details === null ? "" : pfs.quickbook_details.rate_amount} {pfs.quickbook_details === null ? "" : pfs.quickbook_details.rate_duration}</p>
+                            <h5 className='text-dark '>Now available for work in: {city} {zip_code} {state} {country} </h5>
                         </div>
                     </div>
 
@@ -48,4 +47,4 @@ const Professions = ({ pfs }) => {
     );
 };
 
-export default Professions;
+export default Operating;

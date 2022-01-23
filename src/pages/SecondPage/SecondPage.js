@@ -4,18 +4,28 @@ import Box from '@mui/material/Box';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import NavigationBar from '../../NavigationBar/NavigationBar';
-import { Dropdown } from 'react-bootstrap';
 import ClientPosting from './ClientPosting';
 import QuickBookModal from './QuickBookModal';
 import EventModal from './EventModal';
 import Portfolio from './Portfolio';
 import Professions from './Professions';
+import Operating from './Operating';
+import Interactions from './Interactions';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+
 
 const SecondPage = () => {
     const [basicData, setBasicData] = React.useState([])
+    const [eventData, setEventData] = React.useState([])
     const [postingsData, setPostingsData] = React.useState([])
     const [portfolioData, setPortfolioData] = React.useState([])
     const [professionData, setProfessionData] = React.useState([])
+    const [locationData, setLocationData] = React.useState([])
+    const [interactionData, setInteractionData] = React.useState([])
 
     React.useEffect(() => {
         fetch('https://py.crewbella.com/user/api/profile/chiragbalani')
@@ -25,7 +35,10 @@ const SecondPage = () => {
                 setPostingsData(data.client_postings)
                 setPortfolioData(data.portfolio)
                 setProfessionData(data.professions)
-                console.log(data.professions);
+                setLocationData(data.locations)
+                setInteractionData(data.questions)
+                setEventData(data.events[0])
+                console.log(data.events[0]);
             })
     }, [])
 
@@ -86,15 +99,21 @@ const SecondPage = () => {
 
                                     <p className="fw-bold my-3"><small>#Director  #Director  #Filmaker </small> </p>
 
-                                    <Dropdown className='dd-btn mb-4'>
-                                        <Dropdown.Toggle className="bg-light rounded-pill px-4 py-1 text-secondary" id="dropdown-basic" style={{ fontSize: '14px' }}>
-                                            Know More
-                                        </Dropdown.Toggle>
-                                        <Dropdown.Menu>
-                                            <Dropdown.Item style={{ fontSize: '14px' }} className='text-secondary '><i className="fas fa-calendar-alt"></i> Joined: <span className='fw-bold'>{basicData.created_at}</span></Dropdown.Item>
-                                            <Dropdown.Item style={{ fontSize: '14px' }} className='text-secondary '><i className="fas fa-calendar-week"></i> Date of Birth: <span className='fw-bold' >{basicData.dob}</span></Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown>
+                                    <Accordion className=" text-secondary w-75 mx-auto mb-4" style={{ fontSize: '14px' }}>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                        >
+                                            <p className='text-center'>Know More</p>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <p><i className="fas fa-calendar-alt"></i> Joined: <span className='fw-bold'>{basicData.created_at}</span></p>
+                                            <p><i className="fas fa-calendar-week"></i> Date of Birth: <span className='fw-bold' >{basicData.dob}</span><i className="fas fa-calendar-week"></i> Date of Birth: <span className='fw-bold' >{basicData.dob}</span>
+
+                                            </p>
+                                        </AccordionDetails>
+                                    </Accordion>
 
                                     <div className="d-flex align-items-center text-secondary mx-auto" style={{ width: '80%' }}>
                                         <div className='me-auto '><button className='btn ' style={{ backgroundColor: '#a0a0a043', width: '50px', height: '50px', borderRadius: '50%' }}><i className="fas fs-4 fa-user-plus"></i></button><p className='fw-bold text-dark'><small>Follow</small></p></div>
@@ -158,6 +177,23 @@ const SecondPage = () => {
                                     ></Professions>)}
                                 </div>
 
+                                {/* Operating in Data */}
+
+                                <div className="row">
+                                    {locationData.map((location) => <Operating
+                                        key={location.id}
+                                        location={location}
+                                    ></Operating>)}
+                                </div>
+                                {/* Operating in Data */}
+
+                                <div className="row">
+                                    {interactionData.map((question) => <Interactions
+                                        key={question.id}
+                                        question={question}
+                                    ></Interactions>)}
+                                </div>
+
                             </div>
                         </div>
 
@@ -177,6 +213,7 @@ const SecondPage = () => {
                                         <EventModal
                                             eventModalOpen={eventModalOpen}
                                             handleEventModalClose={handleEventModalClose}
+                                            eventData={eventData}
                                         ></EventModal>
                                     </div>
                                     <div className="col-md-6"></div>
