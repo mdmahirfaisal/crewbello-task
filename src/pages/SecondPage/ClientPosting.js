@@ -15,9 +15,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const ClientPosting = ({ cp }) => {
 
-
-    console.log(cp);
-
     const ExpandMore = styled((props) => {
         const { expand, ...other } = props;
         return <IconButton {...other} />;
@@ -28,7 +25,6 @@ const ClientPosting = ({ cp }) => {
             duration: theme.transitions.duration.shortest,
         }),
     }));
-
 
 
 

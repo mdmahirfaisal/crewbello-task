@@ -8,18 +8,24 @@ import { Dropdown } from 'react-bootstrap';
 import ClientPosting from './ClientPosting';
 import QuickBookModal from './QuickBookModal';
 import EventModal from './EventModal';
+import Portfolio from './Portfolio';
+import Professions from './Professions';
 
 const SecondPage = () => {
     const [basicData, setBasicData] = React.useState([])
-    const [cardData, setCardData] = React.useState([])
+    const [postingsData, setPostingsData] = React.useState([])
+    const [portfolioData, setPortfolioData] = React.useState([])
+    const [professionData, setProfessionData] = React.useState([])
 
     React.useEffect(() => {
         fetch('https://py.crewbella.com/user/api/profile/chiragbalani')
             .then(res => res.json())
             .then(data => {
                 setBasicData(data.basic)
-                setCardData(data.client_postings)
-                console.log(data);
+                setPostingsData(data.client_postings)
+                setPortfolioData(data.portfolio)
+                setProfessionData(data.professions)
+                console.log(data.professions);
             })
     }, [])
 
@@ -121,19 +127,41 @@ const SecondPage = () => {
                                     <Tab label="Professions" />
                                     <Tab label="Operating in" />
                                     <Tab label="Interactions" />
-                                    <Tab label="Item Seven" />
                                 </Tabs>
                             </Box>
 
+                            {/* Portfolio Data       */}
+
                             <div className="container">
                                 <div className="row">
-                                    {cardData.map((cp) => <ClientPosting
+                                    {portfolioData.map((pf) => <Portfolio
+                                        key={pf.id}
+                                        pf={pf}
+                                    ></Portfolio>)}
+                                </div>
+
+                                {/* Client postings Data */}
+
+                                <div className="row">
+                                    {postingsData.map((cp) => <ClientPosting
                                         key={cp.id}
                                         cp={cp}
                                     ></ClientPosting>)}
                                 </div>
+
+                                {/* Professions Data */}
+
+                                <div className="row">
+                                    {professionData.map((pfs) => <Professions
+                                        key={pfs.id}
+                                        pfs={pfs}
+                                    ></Professions>)}
+                                </div>
+
                             </div>
                         </div>
+
+
 
                         {/* Third column */}
 
