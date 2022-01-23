@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -14,12 +13,7 @@ import { Nav } from 'react-bootstrap';
 
 
 const Portfolio = ({ pf }) => {
-    const ExpandMore = styled((props) => {
-        const { expand, ...other } = props;
-        return <IconButton {...other} />;
-    })(({ theme, expand }) => ({
 
-    }));
 
     const [expanded, setExpanded] = React.useState(false);
 
@@ -56,14 +50,13 @@ const Portfolio = ({ pf }) => {
 
 
                 <CardActions disableSpacing>
-                    <ExpandMore
+
+                    <p
                         expand={expanded}
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
                         aria-label="show more"
-                    >
-                        <p style={{ fontSize: '13px' }} className='text-dark text-start'>Director's Assistant <span className='text-dark'>at</span> Mismatched... <span className='text-secondary'>{expanded ? "less" : "more"}</span></p>
-                    </ExpandMore>
+                        style={{ fontSize: '13px', cursor: 'pointer' }} className='text-dark text-start'>Director's Assistant <span className='text-dark'>at</span> Mismatched... <span className='text-secondary'>{expanded ? "less" : "more"}</span></p>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
